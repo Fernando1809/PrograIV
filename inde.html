@@ -13,7 +13,7 @@
         <div class="card-header">REGISTRO DE ALUMNO</div>
         <div class="card-body">
             <form id="frmAlumno">
-                <div class="row">
+                <div class="rows">
                     <div class="col-3 col-md-2">
                         <label for="txtCodigoAlumno">CODIGO:</label>
                     </div>
@@ -23,15 +23,17 @@
                                 type="text" class="form-control-sm" name="txtCodigoAlumno" id="txtCodigoAlumno">
                     </div>
                 </div>
-                <div class="row">
+                <br>
+                <div class="rows">
                     <div class="col-3 col-md-2">
                         <label for="txtNombreAlumno">NOMBRE:</label>
                     </div>
-                    <div class="col-9 col-md-6">
+                    <div class="col-6 col-md-6">
                         <input required pattern="[A-Za-zÑñáéíóú ]{3,75}"
                             type="text" class="form-control-sm" name="txtNombreAlumno" id="txtNombreAlumno">
                     </div>
                 </div>
+                <br>
                 <div class="row">
                     <div class="col-3 col-md-9">
                         <input class="btn btn-primary" type="submit" 
