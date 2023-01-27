@@ -1,63 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mi Paguina Web</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-    />
-  </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Pagina Web</title>
 
-  <body>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<body>
     <div class="card text-bg-dark mb-3">
-      <div class="card-header">REGISTRO DE ALUMNOS</div>
-      <div class="card-body">
+        <div class="card-header">REGISTRO DE ALUMNO</div>
+        <div class="card-body">
+            <form id="frmAlumno">
+                <div class="row">
+                    <div class="col-3 col-md-2">
+                        <label for="txtCodigoAlumno">CODIGO:</label>
+                    </div>
+                    <div class="col-3 col-md-3">
+                        <input required pattern="[0-9]{3}" 
+                            title="Ingrese un codigo de alumno valido"
+                                type="text" class="form-control-sm" name="txtCodigoAlumno" id="txtCodigoAlumno">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-md-2">
+                        <label for="txtNombreAlumno">NOMBRE:</label>
+                    </div>
+                    <div class="col-9 col-md-6">
+                        <input required pattern="[A-Za-zÑñáéíóú ]{3,75}"
+                            type="text" class="form-control-sm" name="txtNombreAlumno" id="txtNombreAlumno">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-md-9">
+                        <input class="btn btn-primary" type="submit" 
+                            value="Guardar Datos">
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="card-footer">
 
         </div>
     </div>
-       <form id="frmAlumnos">
-               <div class="row">
-               <div class="col-3 col-md-2" >                          
-      <label for="txtCodigoAlumnno">CODIGO:</label>
-      <input required pattern="[0-9]{3}"
-        title="Ingrese un codigo de estuadiante"
-        type="text" class="form-control-sm" name="txtCodigoAlumnno" id="txtCodigoAlumnno"/>
-               </div>
-               </div>
 
-
-               <div class="row">
-               <div class="col-3 col-md-2">
- <label for="txtNombreAlumno">NOMBRE:</label>     
-      <input required pattern="[A-Za-zÑñáéíóúü ]{3,75}"
-        type="text" name="txtNombreAlumno" id="txtNombreAlumno"/>
-               </div>
-               </div>
-
-               <br>
-
-               <div class="row"div class="col-3 col-md-9">
-<input class="btn btn-primary" type="submit" 
-value="Guardar Datos" />
-               </div>
-
-               
-               </div>
-               
-
-      
-    </form>
     <script>
-      /*let $frmAlumnos = document.querySelector('#frmDocente')
-               console.log($frmAlumnos, $frmAlumnos)*/
-      frmAlumno.addEventListener("submit", (e) => {
-        e.preventDeafult();
-        console.log(txtCodigoAlumno.value, txtCodigoAlumno.value);
-      });
+        /*let $frmAlumno = document.querySelector('#frmAlumno');
+        console.log($frmAlumno, frmAlumno)*/
+        frmAlumno.addEventListener("submit", e=>{
+            e.preventDefault();
+
+            console.log( txtCodigoAlumno.value, txtNombreAlumno.value );
+        });
     </script>
-  </body>
+</body>
 </html>
