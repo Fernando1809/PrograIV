@@ -9,54 +9,70 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <center>
-    <div class="card text-bg-secondary mb-3">
+    <div class="card" id="app">
         <div class="card-header">REGISTRO DE ALUMNO</div>
         <div class="card-body">
-            <form id="frmAlumno">
-                <div class="rows">
+            <form id="frmAlumno" @reset.prevent="nuevoalumno" v-on:submit.prevent="guardarAlumno">
+                <div class="row p-1">
                     <div class="col-3 col-md-2">
                         <label for="txtCodigoAlumno">CODIGO:</label>
                     </div>
                     <div class="col-3 col-md-3">
                         <input required pattern="^[US|SM]{2}[IS|LI|LA]{2}[0-9]{6}$" 
                             title="Ingrese un codigo de alumno valido"
-                                type="text" class="form-control-sm" name="txtCodigoAlumno" id="txtCodigoAlumno">
+                                v-model="alumno.codigo"type="text" class="form-control" name="txtCodigoAlumno" id="txtCodigoAlumno">
                     </div>
                 </div>
                 <br>
-                <div class="rows">
+                <div class="row p-1">
                     <div class="col-3 col-md-2">
                         <label for="txtNombreAlumno">NOMBRE:</label>
                     </div>
                     <div class="col-6 col-md-6">
                         <input required pattern="[A-Za-zÑñáéíóú ]{3,75}"
-                            type="text" class="form-control-sm" name="txtNombreAlumno" id="txtNombreAlumno">
+                            v-model="alumno.nombre"type="text" class="form-control" name="txtNombreAlumno" id="txtNombreAlumno">
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-3 col-md-12">
-                        <input class="btn btn-dark" type="submit"
+                <div class="row p-1">
+                    <div class="col-3 col-md-4">
+                        <input class="btn btn-primary" type="submit"
                             value="Guardar Datos">
+                    </div>
+                <div class="col-3 col-md-3">
+                        <input class="btn btn-warning"type="reset" value="Nuevo">
                     </div>
                 </div>
             </form>
         </div>
-        <div class="card-footer">
-
-        </div>
-    </div>
-</center>
-
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        /*let $frmAlumno = document.querySelector('#frmAlumno');
-        console.log($frmAlumno, frmAlumno)*/
-        frmAlumno.addEventListener("submit", e=>{
-            e.preventDefault();
+        const { createApp } = Vue
+  createApp({
+    data() {
+      return {
+        alumno:[],
+       alumno:{
+        id       :'',
+        codigo   :'',
+        nombre   :'',
+       }
+      }
+    },
+    methods:{
+        guardarAlumno(){
+            this.alumno.push(this.alumno );
+            localStorage.setItem("alumno",JSON.stringify(this.alumno));
+            this.nuevoalumno();
+        },
+        nuevoalumno(){
+            this.alumno.id ='';
+            this.alumno.codigo ='';
+            this.alumno.nombre ='';
 
-            console.log( txtCodigoAlumno.value, txtNombreAlumno.value );
-        });
+        }
+    }
+  }).mount('#app')
     </script>
 </body>
 </html>
