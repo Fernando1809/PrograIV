@@ -12,7 +12,7 @@
     <div class="card" id="app">
         <div class="card-header">REGISTRO DE ALUMNO</div>
         <div class="card-body">
-            <form id="frmAlumno" v-on:submit.prevent="guardarAlumno">
+            <form id="frmAlumno" @reset.prevent="nuevoAlumno" v-on:submit.prevent="guardarAlumno">
                 <div class="row p-1">
                     <div class="col-3 col-md-2">
                         <label for="txtCodigoAlumno">CODIGO:</label>
