@@ -12,7 +12,7 @@
     <div class="card" id="app">
         <div class="card-header">REGISTRO DE ALUMNO</div>
         <div class="card-body">
-            <form id="frmAlumno" @reset.prevent="nuevoalumno" v-on:submit.prevent="guardarAlumno">
+            <form id="frmAlumno" v-on:submit.prevent="guardarAlumno">
                 <div class="row p-1">
                     <div class="col-3 col-md-2">
                         <label for="txtCodigoAlumno">CODIGO:</label>
@@ -42,8 +42,10 @@
                         <input class="btn btn-warning"type="reset" value="Nuevo">
                     </div>
                 </div>
+            </div>
             </form>
         </div>
+    </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -51,7 +53,7 @@
   createApp({
     data() {
       return {
-        alumno:[],
+        alumnos:[],
        alumno:{
         id       :'',
         codigo   :'',
@@ -61,18 +63,18 @@
     },
     methods:{
         guardarAlumno(){
-            this.alumno.push(this.alumno );
-            localStorage.setItem("alumno",JSON.stringify(this.alumno));
-            this.nuevoalumno();
+            this.alumnos = JSON.parse(localStorage.getItem("alumno") || "[]" );
+            this.alumnos.push( this.alumno );
+            localStorage.setItem("alumno", JSON.stringify(this.alumnos) );
+            this.nuevoAlumno();
         },
-        nuevoalumno(){
-            this.alumno.id ='';
-            this.alumno.codigo ='';
-            this.alumno.nombre ='';
-
+        nuevoAlumno(){
+            this.alumno.id = '';
+            this.alumno.codigo = '';
+            this.alumno.nombre = '';
         }
     }
-  }).mount('#app')
-    </script>
+}).mount('#app');
+</script>
 </body>
 </html>
