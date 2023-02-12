@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col-9 col-md-6">
                                 <input required pattern="^[US|SM]{2}[IS|LI|LA]{2}[0-9]{6}$"
-                                    title="Ingrese un codigo de alumno valido" v-model="alumno.codigo" type="text"
+                                    title="Ingrese un codigo de alumno valido" placeholder="USIS000000" v-model="alumno.codigo" type="text"
                                     class="form-control" name="txtCodigoAlumno" id="txtCodigoAlumno">
                             </div>
                     </div>
@@ -35,7 +35,7 @@
                             <label for="txtNombreAlumno">NOMBRE:</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input required pattern="[A-Za-zÑñáéíóú ]{3,75}" v-model="alumno.nombre" type="text"
+                            <input required pattern="[A-Za-zÑñáéíóú ]{3,75}" placeholder="Escriba su nombre" v-model="alumno.nombre" type="text"
                                 class="form-control" name="txtNombreAlumno" id="txtNombreAlumno">
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             <label for="txtApellidoAlumno">APELLIDO:</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input required pattern="[A-Za-zÑñáéíóú ]{3,75}" v-model="alumno.apellido" type="text"
+                            <input required pattern="[A-Za-zÑñáéíóú ]{3,75}" placeholder="Escriba su apellido"v-model="alumno.apellido" type="text"
                                 class="form-control" name="txtAlumnoAlumno" id="txtAlumnoAlumno">
                         </div>
                     </div>
@@ -53,8 +53,12 @@
                             <label for="txtGeneroAlumno">GENERO:</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input v-model="alumno.genero" type="text" class="form-control" name="txtGeneroAlumno"
-                                id="txtGeneroAlumno">
+                                <select  required pattern="selected" v-model="alumno.genero" type="selected" class="form-control" name="txtGeneroAlumno" id="txtGeneroAlumno">
+                                    <option disabled value="">Seleccione genero</option>
+                                    <option>Masculino</option>
+                                    <option>Femenino</option>
+                                    <option>No binario</option>
+                                  </select>
                         </div>
                     </div>
                     <div class="row p-1">
@@ -62,7 +66,7 @@
                             <label for="txtDuiAlumno">DUI:</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input required pattern="[0-9|-]{10}" v-model="alumno.dui" type="text" class="form-control"
+                            <input required pattern="[0-9|-]{10}" placeholder="00000000-0" v-model="alumno.dui" type="text" class="form-control"
                                 name="txtDuiAlumno" id="txtDuiAlumno">
                         </div>
                     </div>
@@ -80,7 +84,7 @@
                             <label for="txtTelefonoAlumno">TELEFONO:</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input required pattern="[0-9|-]{9}" v-model="alumno.telefono" type="text"
+                            <input required pattern="[0-9|-]{9}" placeholder="1234-5678" v-model="alumno.telefono" type="text"
                                 class="form-control" name="txtTelefonoAlumno" id="txtTelefonoAlumno">
                         </div>
                     </div>
@@ -89,7 +93,7 @@
                             <label for="txtDireccionAlumno">DIRECCION</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input v-model="alumno.direccion" type="text" class="form-control" name="txtDireccionAlumno"
+                            <input placeholder="Municipio" v-model="alumno.direccion" type="text" class="form-control" name="txtDireccionAlumno"
                                 id="txtDireccionAlumno">
                         </div>
                     </div>
