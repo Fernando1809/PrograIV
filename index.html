@@ -16,7 +16,7 @@
     <div class="container" id="app">
         <div class="row">
             <div class="col-12 col-md-9">
-                <div class="card text-bg-dark text-center">
+                <div class="card text-bg-info text-center ">
                     <div class="card-header">REGISTRO DE ALUMNOS</div>
                     <div class="card-body">
                         <form id="frmAlumno" @reset.prevent="nuevoAlumno" v-on:submit.prevent="guardarAlumno">
@@ -99,7 +99,7 @@
                     </div>
                     <div class="row p-1">
                         <div class="col-3 col-md-3">
-                            <input class="btn btn-primary" type="submit" value="Guardar">
+                            <input class="btn btn-dark" type="submit" value="Guardar">
                         </div>
                         <div class="col-9 col-md-9">
                             <input class="btn btn-warning" type="reset" value="Nuevo">
@@ -113,7 +113,7 @@
         <br>
         <div class="col-12 col-md-10">
             <div class="card border-primary">
-                <div class="card-header bg-primary text-center text-white">LISTADO DE ALUMNOS</div>
+                <div class="card-header bg-dark text-center text-white">LISTADO DE ALUMNOS</div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover">
                         <thead>
