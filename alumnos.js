@@ -67,24 +67,7 @@ Vue.componet('componet-alumos',{
             let tx = this.db.transaction(store, modo); //modo = readonly || writeonly
             return tx.objectStore(store);
         },
-        abrirBD(){
-            let indexDB = indexedDB.open('db_sistema_academico',1);
-            indexDB.onupgradeneeded=e=>{
-                let req = e.target.result,
-                    tblalumno = req.createObjectStore('tblalumnos',{keyPath:'idAlumno'});   
-                    //tblmateria = req.createObjectStore('tblmaterias',{keyPath:'idMateria'});
-
-                tblalumno.createIndex('idAlumno', 'idAlumno', {unique:true});
-                //tblmateria.createIndex('idMateria', 'idMateria', {unique:true});
-            };
-            indexDB.onsuccess= e=>{
-                this.db = e.target.result;
-                this.listarAlumnos();
-            };
-            indexDB.onerror= e=>{
-                console.error( e );
-            };
-        },
+        
     },
     template: ` <div class="row">
     <div class="col-12 col-md-9">
