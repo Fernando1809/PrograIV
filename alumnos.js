@@ -1,4 +1,4 @@
-Vue.componet('componet-alumos',{
+Vue.componet('componet-alumnos',{
     data() {
         return {
             db:'',				
@@ -24,18 +24,22 @@ Vue.componet('componet-alumos',{
            let store = this.abrirStore('tblalumnos', 'readwrite');
             if(this.accion==='nuevo'){
                 this.alumno.idAlumno = new Date().getTime().toString(16);
+                this.alumnos.push( JSON.parse( JSON.stringify(this.alumno) ) );
+            }else if(this.accion==='modificar'){
+                let index = this.alumnos.findIndex(alumno=>alumno.idAlumno==this.alumno.idAlumno);
+                this.alumno[index] = JSON.parse(JSON.stringify(this.alumno));
+            }else if(this.accion=='eliminar'){
+                let index = this.alumnos.findIndex(alumno=>alumno.idAlumno==this.alumno.idAlumno);
+                this.alumnos.slice(index,1);
             }
-            store.put( JSON.parse(JSON.stringify(this.alumno) ) );
-            this.listarAlumnos();
+            localStorage.setItem("alumnos", JSON.stringify(this.alumnos) );
             this.nuevoAlumno();
         },
         eliminarAlumno(alumno) {
             if( confirm(`Esta seguro de eliminar a ${alumno.nombre}?`) ){
-                let store = this.abrirStore('tblalumnos', 'readwrite'),
-                    req = store.delete(alumno.idAlumno);
-                req.onsuccess = resp=>{
-                    this.listarAlumnos();
-                };
+                this.accion='eliminar';
+                this.alumno=alumno;
+                this.guardarAlumno();
             }
         },
         nuevoAlumno() {
