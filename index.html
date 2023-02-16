@@ -135,8 +135,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="alumno in alumnos" :key="alumno.idAlumnos" @click="modificarAlumno(alumno)">
-                                <td>{{ alumno.codigo }}</td>
+                            <tr v-for="alumno in alumnos" :key="alumno.idAlumno" @click="modificarAlumno(alumno)">
+                                <td>{{alumno.codigo }}</td>
                                 <td>{{ alumno.nombre }}</td>
                                 <td>{{ alumno.apellido }}</td>
                                 <td>{{ alumno.genero }}</td>
@@ -164,11 +164,12 @@
         createApp({
             data() {
                 return {
+                    db:'',				
                     accion: 'nuevo',
                     buscar: '',
                     alumnos: [],
                     alumno: {
-                        idAlumnos: '',
+                        idAlumno: '',
                         codigo: '',
                         nombre: '',
                         apellido: '',
@@ -183,26 +184,21 @@
             methods: {
                 guardarAlumno() {
                     this.listarAlumnos();
-                    if (this.accion === 'nuevo') {
+                   let store = this.abrirStore('tblalumnos', 'readwrite');
+                    if(this.accion==='nuevo'){
                         this.alumno.idAlumno = new Date().getTime().toString(16);
-                        this.alumnos.push(JSON.parse(JSON.stringify(this.alumno)));
-                    } else if (this.accion === 'modificar') {
-                        let index = this.alumnos.findIndex(alumno => alumno.idAlumno == this.alumno
-                            .idAlumno);
-                        this.alumnos[index] = JSON.parse(JSON.stringify(this.alumno));
-                    } else if (this.accion === 'eliminar') {
-                        let index = this.alumnos.findIndex(alumno => alumno.idAlumno == this.alumno
-                            .idAlumno);
-                        this.alumnos.splice(index, 1);
                     }
-                    localStorage.setItem("alumnos", JSON.stringify(this.alumnos));
+                    store.put( JSON.parse(JSON.stringify(this.alumno) ) );
+                    this.listarAlumnos();
                     this.nuevoAlumno();
                 },
                 eliminarAlumno(alumno) {
-                    if (confirm(`Esta seguro de eliminar a ${alumno.nombre}?`)) {
-                        this.accion = 'eliminar';
-                        this.alumno = alumno;
-                        this.guardarAlumno();
+                    if( confirm(`Esta seguro de eliminar a ${alumno.nombre}?`) ){
+                        let store = this.abrirStore('tblalumnos', 'readwrite'),
+                            req = store.delete(alumno.idAlumno);
+                        req.onsuccess = resp=>{
+                            this.listarAlumnos();
+                        };
                     }
                 },
                 nuevoAlumno() {
@@ -222,13 +218,39 @@
                     this.alumno = alumno;
                 },
                 listarAlumnos() {
-                    this.alumnos = JSON.parse(localStorage.getItem('alumnos') || "[]")
-                        .filter(alumno => alumno.nombre.toLowerCase().indexOf(this.buscar.toLowerCase()) > -
-                        1);
-                }
+                    let store = this.abrirStore('tblalumnos', 'readonly'),
+                        data = store.getAll();
+                    data.onsuccess = resp=>{
+                        this.alumnos = data.result
+                            .filter(alumno=>alumno.nombre.toLowerCase().indexOf(this.buscar.toLowerCase())>-1 ||
+                                alumno.codigo.indexOf(this.buscar)>-1);
+                    };
+                },
+				 abrirStore(store, modo){
+                    let tx = this.db.transaction(store, modo); //modo = readonly || writeonly
+                    return tx.objectStore(store);
+                },
+                abrirBD(){
+                    let indexDB = indexedDB.open('db_sistema_academico',1);
+                    indexDB.onupgradeneeded=e=>{
+                        let req = e.target.result,
+                            tblalumno = req.createObjectStore('tblalumnos',{keyPath:'idAlumno'});   
+                            //tblmateria = req.createObjectStore('tblmaterias',{keyPath:'idMateria'});
+
+                        tblalumno.createIndex('idAlumno', 'idAlumno', {unique:true});
+                        //tblmateria.createIndex('idMateria', 'idMateria', {unique:true});
+                    };
+                    indexDB.onsuccess= e=>{
+                        this.db = e.target.result;
+                        this.listarAlumnos();
+                    };
+                    indexDB.onerror= e=>{
+                        console.error( e );
+                    };
+                },
             },
             created() {
-                this.listarAlumnos();
+                this.abrirBD();
             }
         }).mount('#app');
     </script>
@@ -237,5 +259,3 @@
                 class="fa-brands fa-github"></i></a>
     </div></footer>
 </body>
-
-</html>
