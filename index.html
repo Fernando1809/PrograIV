@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-12 col-md-9">
                 <div class="card text-bg-info text-center ">
-                    <div class="card-header">REGISTRO DE ALUMNOS</div>
+                    <div class="card-header bg-primary text-white">REGISTRO DE ALUMNOS</div>
                     <div class="card-body">
                         <form id="frmAlumno" @reset.prevent="nuevoAlumno" v-on:submit.prevent="guardarAlumno">
                             <div class="row p-1">
@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col-9 col-md-6">
                                 <input required pattern="^[US|SM]{2}[IS|LI|LA]{2}[0-9]{6}$"
-                                    title="Ingrese un codigo de alumno valido" placeholder="USIS000000" v-model="alumno.codigo" type="text"
+                                    title="Ingrese un codigo de alumno valido" placeholder="CODIGO" v-model="alumno.codigo" type="text"
                                     class="form-control" name="txtCodigoAlumno" id="txtCodigoAlumno">
                             </div>
                     </div>
@@ -35,7 +35,7 @@
                             <label for="txtNombreAlumno">NOMBRE:</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input required pattern="[A-Za-zÑñáéíóú ]{3,75}" placeholder="Escriba su nombre" v-model="alumno.nombre" type="text"
+                            <input required pattern="[A-Za-zÑñáéíóú ]{3,75}" placeholder="NOMBRE" v-model="alumno.nombre" type="text"
                                 class="form-control" name="txtNombreAlumno" id="txtNombreAlumno">
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             <label for="txtApellidoAlumno">APELLIDO:</label>
                         </div>
                         <div class="col-9 col-md-6">
-                            <input required pattern="[A-Za-zÑñáéíóú ]{3,75}" placeholder="Escriba su apellido"v-model="alumno.apellido" type="text"
+                            <input required pattern="[A-Za-zÑñáéíóú ]{3,75}" placeholder="APELLIDO"v-model="alumno.apellido" type="text"
                                 class="form-control" name="txtAlumnoAlumno" id="txtAlumnoAlumno">
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                     </div>
                     <div class="row p-1">
                         <div class="col-3 col-md-2">
-                            <label for="txtDireccionAlumno">DIRECCION</label>
+                            <label for="txtDireccionAlumno">MUNICIPIO</label>
                         </div>
                         <div class="col-9 col-md-6">
                             <input placeholder="Municipio" v-model="alumno.direccion" type="text" class="form-control" name="txtDireccionAlumno"
@@ -99,7 +99,7 @@
                     </div>
                     <div class="row p-1">
                         <div class="col-3 col-md-3">
-                            <input class="btn btn-dark" type="submit" value="Guardar">
+                            <input class="btn btn-success" type="submit" value="Guardar">
                         </div>
                         <div class="col-9 col-md-9">
                             <input class="btn btn-warning" type="reset" value="Nuevo">
@@ -130,7 +130,7 @@
                                 <th>DUI</th>
                                 <th>FECHA DE NACIMIENTO</th>
                                 <th>TELEFONO</th>
-                                <th>DIRECCION</th>
+                                <th>MUNICIPIO</th>
                                 <th>ELIMINAR</th>
                             </tr>
                         </thead>
