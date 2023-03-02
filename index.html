@@ -27,21 +27,21 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link text-white" @click="abrirFormulario('docente')">Docentes</a>
-                        <a class="nav-link text-white" @click="abrirFormulario('alumno')">Alumnos</a>
-                        <a class="nav-link text-white" @click="abrirFormulario('materia')">Materias</a>
-                        <a class="nav-link text-white" @click="abrirFormulario('matricula')">Matricula</a>
-                        <a class="nav-link text-white" @click="abrirFormulario('inscripcion')">Inscripcion</a>
+                        <a class="nav-link" @click="abrirFormulario('docente')">Docentes</a>
+                        <a class="nav-link" @click="abrirFormulario('alumno')">Alumnos</a>
+                        <a class="nav-link" @click="abrirFormulario('materia')">Materias</a>
+                        <a class="nav-link" @click="abrirFormulario('matricula')">Matricula</a>
+                        <a class="nav-link" @click="abrirFormulario('inscripcion')">Inscripcion</a>
                     </div>
                 </div>
             </div>
         </nav>
         <div id="appSistema">
             <component-docentes ref="docente" v-show="forms['docente'].mostrar"></component-docentes>
-            <component-alumnos ref="alumno" v-show="forms['alumno'].mostrar"></component-alumnos>
             <component-materias ref="materia" v-show="forms['materia'].mostrar"></component-materias>
-            <component-inscripcion ref="inscripcion" v-show="forms[ 'inscripcion'].mostrar"></component-inscripcion>
-            <component-matriculas ref="matricula" v-show="forms['matricula'].mostrar"></component-matriculas>        </div>
+            <component-alumnos ref="alumno" v-show="forms['alumno'].mostrar"></component-alumnos>
+            <component-matriculas ref="matricula" v-show="forms['matricula'].mostrar"></component-matriculas>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-select@3.0.0"></script>
@@ -52,9 +52,5 @@
     <script src="alumnos.js"></script>
     <script src="matriculas.js"></script>
     <script src="main.js"></script>
-    <footer class="text-center"><i title="Diseñado Por: FG1809">Designed by: EL FHERXXO</i>
-        <a title="Git" target="_blank" href="https://github.com/Fernando1809"><i class="fa-brands fa-github"></i></a>
-        </div>
-    </footer>
 </body>
 </html>
