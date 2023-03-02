@@ -68,8 +68,8 @@ Vue.component('component-inscripcion',{
             };
         },
         abrirStore(store, modo){
-            let tx = this.db.transaction(store, modo); 
-            return tx.objectStore(store);
+            // let tx = this.db.transaction(store, modo); 
+            // return tx.objectStore(store);
         },
         abrirBD(){
             let indexDB = indexedDB.open('Sistema_Academico',1);
