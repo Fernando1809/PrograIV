@@ -7,4 +7,6 @@
                background-color:var(--color);
                
 }
-
+.fondito{
+               background-image: url("./img/fondo.png");
+}
