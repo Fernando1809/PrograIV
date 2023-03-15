@@ -25,6 +25,11 @@ Vue.component('component-docentes',{
                            this.docentes.splice(index,1);
                        }
                        localStorage.setItem("docentes", JSON.stringify(this.docentes) );
+                       fetch('private/modulos/docentes/docentes.php')
+                       .then(resp=>resp.json)
+                       .then(resp=>{
+                        console.log(resp);
+                       });
                        this.nuevoDocente();
                    },
                    eliminarDocente(docente){
