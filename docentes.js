@@ -25,7 +25,7 @@ Vue.component('component-docentes',{
                            this.docentes.splice(index,1);
                        }
                        localStorage.setItem("docentes", JSON.stringify(this.docentes) );
-                       fetch('private/modulos/docentes/docentes.php')
+                       fetch(`private/modulos/docentes/docentes.php?accion=${this.accion}&docentes=${JSON.stringify(this.docente)}`)
                        .then(resp=>resp.json)
                        .then(resp=>{
                         console.log(resp);
@@ -52,6 +52,14 @@ Vue.component('component-docentes',{
                    listar(){
                        this.docentes = JSON.parse( localStorage.getItem('docentes') || "[]" )
                            .filter(docente=>docente.nombre.toLowerCase().indexOf(this.buscar.toLowerCase())>-1);
+                           if(this.docentes.lenght<=0 && this.buscar.trim().lenght<=0 ){
+                            fetch('private/modulos/docentes/docentes.php?accion=consultar')
+                            .then(resp=>resp.json())
+                            .then(resp=>{
+                                this.docentes=resp;
+                                localStorage.setItem("docentes", JSON.stringify(this.docentes) );
+                            });
+                        }
                    }
                },
                template: `

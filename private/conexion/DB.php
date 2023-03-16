@@ -14,13 +14,20 @@ class DB{
 
             $this->preparado = $this->conexion->prepare($sql);
             $this->result = $this->preparado->execute($parametros);
-            echo $this->result;
+            return $this->result;
         }catch(Exception $e){
-            echo 'Error: '. $e->getMessage();
+            return 'Error: '. $e->getMessage();
         }
     }
     public function obtener_datos(){
-        $this->preparado->fetchAll(PDO::FETCH_ASSOC);
+        return $this->preparado->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function obtener($sql){
+        try{
+            return $this->conexion->query($sql);
+        }catch(Exception $e){
+            return 'Error: '.$e->getMessage();
+        }
     }
 }    
 ?>
