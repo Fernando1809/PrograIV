@@ -158,7 +158,7 @@ Vue.component('component-inscripcion',{
     <div class="row">
                        <div class="col-12 col-md-6">
                            <div class="card text-center">
-                               <div class="card-header text-bg-danger text-white">INSCRIPCION DE MATERIAS</div>
+                               <div class="card-header text-bg-secondary text-white">INSCRIPCION DE MATERIAS</div>
                                <div class="card-body">
             <div class="row">
                     <div class="row p-2">
@@ -235,7 +235,7 @@ Vue.component('component-inscripcion',{
                 <div class="row">
                 <div class="col-12 col-md-12">
                     <div class="card text-center">
-                        <div class="card-header text-bg-danger text-white">MATERIAS INSCRITAS</div>
+                        <div class="card-header text-bg-secondary text-white">MATERIAS INSCRITAS</div>
                         <div class="card-body">
      <div class="row">
          <div class="col-sm-5">
