@@ -38,9 +38,9 @@
         <div id="appSistema">
             <component-docentes ref="docente" v-show="forms['docente'].mostrar"></component-docentes>
             <component-alumnos ref="alumno" v-show="forms['alumno'].mostrar"></component-alumnos>
-
             <component-materias ref="materia" v-show="forms['materia'].mostrar"></component-materias>
             <component-matriculas ref="matricula" v-show="forms['matricula'].mostrar"></component-matriculas>
+            <component-inscripcion ref="inscripcion" v-show="forms['inscripcion'].mostrar"></component-inscripcion>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
@@ -51,6 +51,7 @@
     <script src="alumnos.js"></script>
     <script src="materias.js"></script>
     <script src="matriculas.js"></script>
+    <script src="inscripcion.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -2,10 +2,10 @@
 class DB{
     private $conexion, $preparado, $result;
 
-    public function __contruct($server, $user, $pass){
+    public function __construct($server, $user, $pass){
         $this->conexion = new PDO($server, $user, $pass,
-        array(PDO::ATTR_EMULATE_PREPARES=>false,
-        PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION)) or die ('No se pudo conectar a la BD');
+            array(PDO::ATTR_EMULATE_PREPARES=>false,
+            PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION)) or die('Nose pudo conectar a la BD');
     }
     public function consultas($sql){
         try{
@@ -29,5 +29,5 @@ class DB{
             return 'Error: '.$e->getMessage();
         }
     }
-}    
+}
 ?>
