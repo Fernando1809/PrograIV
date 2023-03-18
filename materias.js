@@ -1,13 +1,19 @@
+Vue.component('v-select-docentes', VueSelect.VueSelect);
 Vue.component('component-materias',{
                data() {
                    return {
                        accion:'nuevo',
                        buscar: '',
                        materias: [],
+                       docentes:[],
                        materia:{
                            idMateria : '',
                            codigo : '',
                            nombre : '',
+                        docente:{
+                            id  :'',
+                            label :''
+                        }
                        }
                    }
                },
@@ -76,6 +82,14 @@ Vue.component('component-materias',{
                                            </div>
                                        </div>
                                        <div class="row p-1">
+                                           <div class="col-3 col-md-2">
+                                               <label for="txtNombreDocente">DOCENTE:</label>
+                                           </div>
+                                           <div class="col-9 col-md-6">
+                                           <v-select-docentes required v-model="docente.nombre" :options="docentes" ></v-select-docentes>
+                                           </div>
+                                       </div>
+                                       <div class="row p-1">
                                            <div class="col-3 col-md-3">
                                                <input class="btn btn-primary" type="submit" 
                                                    value="Guardar">
@@ -103,6 +117,7 @@ Vue.component('component-materias',{
                                            <tr>
                                                <th>CODIGO</th>
                                                <th >NOMBRE</th>
+                                               <th> DOCENTE</th>
                                                <th>ELIMINAR</th>
                                            </tr>
                                        </thead>
@@ -110,6 +125,7 @@ Vue.component('component-materias',{
                                            <tr v-for="materia in materias" :key="materia.idMateria" @click="modificarMateria(materia)" >
                                                <td>{{ materia.codigo }}</td>
                                                <td>{{ materia.nombre }}</td>
+                                               <td>{{ docente.nombre }}</td>
                                                <td><button class="btn btn-danger" @click="eliminarMateria(materia)">ELIMINAR</button></td>
                                            </tr>
                                        </tbody>

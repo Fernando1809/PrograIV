@@ -55,8 +55,8 @@ Vue.component('component-alumnos',{
           this.alumno.genero = '';
           this.alumno.dui = '';
           this.alumno.fechaN = '';
-          this.alumno.telefono = '';
           this.alumno.direccion = '';
+          this.alumno.telefono = '';
         },
   
         modificarAlumno(alumno){
