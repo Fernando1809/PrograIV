@@ -30,6 +30,18 @@ class Docente{
         if(empty($this->datos['nombre'])){
             $this->respuesta['msg'] = 'Por favor ingrese el nombre';
         }
+        if(empty($this->datos['titulo'])){
+            $this->respuesta['msg'] = 'Por favor ingrese el titulo';
+        }
+        if(empty($this->datos['telefono'])){
+            $this->respuesta['msg'] = 'Por favor ingrese el telefono';
+        }
+        if(empty($this->datos['departamento'])){
+            $this->respuesta['msg'] = 'Por favor ingrese el departamento';
+        }
+        if(empty($this->datos['telefono'])){
+            $this->respuesta['msg'] = 'Por favor ingrese el telefono';
+        }
         return $this->administrar_docente();
     }
     private function administrar_docente(){
@@ -37,13 +49,13 @@ class Docente{
         if( $this->respuesta['msg']=='ok' ){
             if($accion=='nuevo'){
                 return $this->db->consultas(
-                    'INSERT INTO docentes VALUES(?,?,?)',
-                    $this->datos['idDocente'], $this->datos['codigo'], $this->datos['nombre']
+                    'INSERT INTO docentes VALUES(?,?,?,?,?,?,?)',
+                    $this->datos['idDocente'], $this->datos['codigo'], $this->datos['nombre'],$this->datos['titulo'],$this->datos['edad'],$this->datos['telefono'],$this->datos['departamento']
                 );
             }else if($accion=='modificar'){
                 return $this->db->consultas(
                     'UPDATE docentes SET codigo=?, nombre=? WHERE idDocente=?',
-                    $this->datos['codigo'], $this->datos['nombre'], $this->datos['idDocente']
+                    $this->datos['codigo'], $this->datos['nombre'],$this->datos['titulo'],$this->datos['edad'],$this->datos['telefono'],$this->datos['departamento'],$this->datos['idDocente']
                 );
             }else if($accion=='eliminar'){
                 return $this->db->consultas(

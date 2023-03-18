@@ -12,8 +12,9 @@ Vue.component('component-alumnos',{
               genero :'',
               dui :'',
               fechaN :'',
-              telefono :'',
               direccion :'',
+              telefono :'',
+              
             }
         }
     },
@@ -31,6 +32,11 @@ Vue.component('component-alumnos',{
                 this.alumnos.splice(index,1);
             }
             localStorage.setItem("alumnos", JSON.stringify(this.alumnos) );
+            fetch(`private/modulos/alumnos/alumnos.php?accion=${this.accion}&alumnos=${JSON.stringify(this.alumno)}`)
+                       .then(resp=>resp.json)
+                       .then(resp=>{
+                        console.log(resp);
+                       });
             this.nuevoAlumno();
         },
         eliminarAlumno(alumno){
@@ -60,8 +66,16 @@ Vue.component('component-alumnos',{
         listar(){
             this.alumnos = JSON.parse( localStorage.getItem('alumnos') || "[]" )
                 .filter(alumno=>alumno.nombre.toLowerCase().indexOf(this.buscar.toLowerCase())>-1);
-        }
-    },
+                if(this.alumnos.lenght<=0 && this.buscar.trim().lenght<=0 ){
+                 fetch('private/modulos/alumnos/alumnos.php?accion=consultar')
+                 .then(resp=>resp.json())
+                 .then(resp=>{
+                     this.docentes=resp;
+                     localStorage.setItem("alumnos", JSON.stringify(this.alumnos) );
+                });
+            }
+       }
+   },
     template: `
         <div class="row">
             <div class="col-12 col-md-6">
@@ -129,14 +143,14 @@ Vue.component('component-alumnos',{
                                 </div>
                             </div>
                             <div class="row p-1">
-                                <div class="col-3 col-md-2">
-                                    <label for="txtTelefonoAlumno">TELEFONO:</label>
-                                </div>
-                                <div class="col-9 col-md-6">
-                                    <input required pattern="[0-9]{4}-[0-9]{4}"
-                                        v-model="alumno.telefono" type="text" class="form-control" name="txtTelefonoAlumno" id="txtTelefonoAlumno">
-                                </div>
-                            </div>
+                                                   <div class="col-3 col-md-2">
+                                                       <label for="txtTelefonoAlumno">TELEFONO:</label>
+                                                   </div>
+                                                   <div class="col-9 col-md-6">
+                                                       <input title="Ingrese un numero correcto" 
+                                                       v-model="alumno.telefono" type="text" class="form-control" name="txtTelefonoAlumno" id="txtTelefonoAlumno">                                        
+                                                   </div>
+                                               </div> 
                             <div class="row p-1">
                                 <div class="col-3 col-md-3">
                                     <input class="btn btn-primary" type="submit" 
