@@ -1,5 +1,5 @@
 Vue.component('v-select-materia',VueSelect.VueSelect);
-Vue.component('v-select-matricula',VueSelect.VueSelect);
+Vue.component('v-select-alumnos',VueSelect.VueSelect);
 Vue.component('component-inscripcion',{
     data:()=>{
         return {
@@ -42,10 +42,13 @@ Vue.component('component-inscripcion',{
                 let index = inscripcions.findIndex(inscripcion=>inscripcion.idInscripcion==this.inscripcion.idInscripcion);
                 inscripcions.splice(index,1);
             }
-            localStorage.setItem('inscripcions', JSON.stringify(inscripcions));
+            localStorage.setItem("inscripcions", JSON.stringify(this.inscripcions));
+            fetch(`private/modulos/inscripcion/inscripcion.php?accion=${this.accion}&docentes=${JSON.stringify(this.inscripcion)}`)
+                .then(resp => resp.json)
+                .then(resp => {
+                    console.log(resp);
+                });
             this.nuevoInscripcion();
-            this.obtenerInscripcions();
-            this.inscripcion.msg = 'Inscripcion procesado con exito';
         },
         obtenerInscripcions(valor=''){
             this.inscripcions = [];
@@ -79,6 +82,18 @@ Vue.component('component-inscripcion',{
             
             
             
+        },
+        listar() {
+            this.inscripcions = JSON.parse(localStorage.getItem('inscripcions') || "[]")
+                .filter(inscripcion => inscripcion.fecha.toLowerCase().indexOf(this.buscar.toLowerCase()) > -1);
+            if (this.inscripcions.lenght <= 0 && this.buscar.trim().lenght <= 0) {
+                fetch('private/modulos/inscripcion/inscripcion.php?accion=consultar')
+                    .then(resp => resp.json())
+                    .then(resp => {
+                        this.inscripcions = resp;
+                        localStorage.setItem("inscripcions", JSON.stringify(this.inscripcions));
+                    });
+            }
         }
     },
     created(){
@@ -101,11 +116,10 @@ Vue.component('component-inscripcion',{
                         </div>
                         <div class="row p-1">
                         <div class="col col-md-2">
-                            Id_estudiante:
+                            ALUMNO:
                         </div>
                         <div class="col col-md-3">
-                            <v-select-matricula v-model="inscripcion.matricula" 
-                                :options="matriculas" placeholder="Seleccione"/>
+                        <v-select-alumnos required v-model="matricula.alumno" :options="alumnos" ></v-select-alumnos>
                         </div>
                         </div>
                         <div class="row p-1">
@@ -179,7 +193,7 @@ Vue.component('component-inscripcion',{
                     Busqueda de Inscripcions
                 </div>
                 <div class="card-body">
-                    <table class="table table-dark table-hover">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th colspan="6">

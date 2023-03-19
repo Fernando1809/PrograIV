@@ -31,7 +31,12 @@ Vue.component('component-matriculas',{
                 let index = this.matriculas.findIndex(matricula=>matricula.idMatricula==this.matricula.idMatricula);
                 this.matriculas.splice(index,1);
             }
-            localStorage.setItem("matriculas", JSON.stringify(this.matriculas) );
+            localStorage.setItem("matriculas", JSON.stringify(this.matriculas));
+            fetch(`private/modulos/matriculas/matriculas.php?accion=${this.accion}&matriculas=${JSON.stringify(this.matricula)}`)
+                .then(resp => resp.json)
+                .then(resp => {
+                    console.log(resp);
+                });
             this.nuevoMatricula();
         },
         eliminarMatricula(matricula){
@@ -45,6 +50,7 @@ Vue.component('component-matriculas',{
             this.accion = 'nuevo';
             this.matricula.idMatricula = '';
             this.matricula.fecha = '';
+            this.comprobante ='';
             this.matricula.pago = false;
             this.matricula.alumno.id = '';
             this.matricula.alumno.label = '';
@@ -53,16 +59,17 @@ Vue.component('component-matriculas',{
             this.accion = 'modificar';
             this.matricula = matricula;
         },
-        listar(){
-            this.matriculas = JSON.parse( localStorage.getItem('matriculas') || "[]" )
-                .filter(matricula=>matricula.alumno.label.toLowerCase().indexOf(this.buscar.toLowerCase())>-1 ||
-                    matricula.fecha.indexOf(this.buscar)>-1);
-            this.alumnos = JSON.parse( localStorage.getItem('alumnos') || "[]" ).map(alumno=>{
-                return { 
-                    id: alumno.idAlumno,
-                    label : alumno.nombre
-                }
-            });
+        listar() {
+            this.matriculas = JSON.parse(localStorage.getItem('matriculas') || "[]")
+                .filter(matricula => matricula.alumno.toLowerCase().indexOf(this.buscar.toLowerCase()) > -1);
+            if (this.matriculas.lenght <= 0 && this.buscar.trim().lenght <= 0) {
+                fetch('private/modulos/matriculas/matriculas.php?accion=consultar')
+                    .then(resp => resp.json())
+                    .then(resp => {
+                        this.matriculas = resp;
+                        localStorage.setItem("matriculas", JSON.stringify(this.matriculas));
+                    });
+            }
         }
     },
     template: `
