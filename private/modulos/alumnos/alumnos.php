@@ -36,13 +36,13 @@ class Alumno{
         if(empty($this->datos['dui'])){
             $this->respuesta['msg'] = 'Por favor ingrese el dui';
         }
-        if(empty($this->datos['fechaNacimiento'])){
+        if(empty($this->datos['fechaN'])){
             $this->respuesta['msg'] = 'Por favor seleccionar su fecha de nacimiento';
         }
 		if(empty($this->datos['direccion'])){
             $this->respuesta['msg'] = 'Por favor ingrese su direccion';
         }
-        if(empty($this->datos['numTelefono'])){
+        if(empty($this->datos['telefono'])){
             $this->respuesta['msg'] = 'Por favor ingrese su numero de telefono';
         }
         return $this->administrar_alumno();
@@ -53,12 +53,12 @@ class Alumno{
             if($accion=='nuevo'){
                 return $this->db->consultas(
                     'INSERT INTO alumnos VALUES(?,?,?,?,?,?,?,?)',
-                    $this->datos['idAlumno'], $this->datos['codigo'], $this->datos['nombre'], $this->datos['genero'],$this->datos['dui'],$this->datos['fechaNacimiento'],$this->datos['direccion'],$this->datos['numTelefono']
+                    $this->datos['idAlumno'], $this->datos['codigo'], $this->datos['nombre'], $this->datos['genero'],$this->datos['dui'],$this->datos['fechaN'],$this->datos['direccion'],$this->datos['telefono']
                 );
             }else if($accion=='modificar'){
                 return $this->db->consultas(
-                    'UPDATE alumnos SET codigo=?, nombre=? WHERE idAlumno=?',
-                    $this->datos['codigo'], $this->datos['nombre'],$this->datos['genero'],$this->datos['dui'],$this->datos['fechaNacimiento'],$this->datos['direccion'],$this->datos['numTelefono'],$this->datos['idAlumno']
+                    'UPDATE alumnos SET codigo=?, nombre=?,genero=?, dui=?, fechaN=?, direccion=?, telefono=?  WHERE idAlumno=?',
+                    $this->datos['codigo'], $this->datos['nombre'],$this->datos['genero'],$this->datos['dui'],$this->datos['fechaN'],$this->datos['direccion'],$this->datos['telefono'],$this->datos['idAlumno']
                 );
             }else if($accion=='eliminar'){
                 return $this->db->consultas(

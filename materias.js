@@ -1,38 +1,37 @@
-Vue.component('v-select-docentes', VueSelect.VueSelect);
 Vue.component('component-materias',{
                data() {
                    return {
                        accion:'nuevo',
                        buscar: '',
                        materias: [],
-                       docentes:[],
                        materia:{
                            idMateria : '',
                            codigo : '',
                            nombre : '',
-                        docente:{
-                            id  :'',
-                            label :''
-                        }
                        }
                    }
                },
                methods:{
                    guardarMateria(){
                        this.listar();
-                       if(this.accion==='nuevo'){
+                       if (this.accion === 'nuevo') {
                            this.materia.idMateria = new Date().getTime().toString(16);
-                           this.materias.push( JSON.parse( JSON.stringify(this.materia) ) );
-                       }else if(this.accion==='modificar'){
-                           let index = this.materias.findIndex(materia=>materia.idMateria==this.materia.idMateria);
-                           this.materias[index] = JSON.parse( JSON.stringify(this.materia) );
-                       }else if(this.accion==='eliminar'){
-                           let index = this.materias.findIndex(materia=>materia.idMateria==this.materia.idMateria);
-                           this.materias.splice(index,1);
+                           this.materias.push(JSON.parse(JSON.stringify(this.materia)));
+                       } else if (this.accion === 'modificar') {
+                           let index = this.materias.findIndex(materia => materia.idMateria == this.materia.idMateria);
+                           this.materias[index] = JSON.parse(JSON.stringify(this.materia));
+                       } else if (this.accion === 'eliminar') {
+                           let index = this.materias.findIndex(materia => materia.idMateria == this.materia.idMateria);
+                           this.materias.splice(index, 1);
                        }
-                       localStorage.setItem("materias", JSON.stringify(this.materias) );
-                       this.nuevoMateria();
-                   },
+                       localStorage.setItem("materias", JSON.stringify(this.materias));
+                       fetch(`private/modulos/materias/materias.php?accion=${this.accion}&materias=${JSON.stringify(this.materia)}`)
+                       .then(resp => resp.json)
+                .then(resp => {
+                    console.log(resp);
+                });
+            this.nuevoMateria();
+        },
                    eliminarMateria(materia){
                        if( confirm(`Esta seguro de eliminar a ${materia.nombre}?`) ){
                            this.accion='eliminar';
@@ -50,10 +49,18 @@ Vue.component('component-materias',{
                        this.accion = 'modificar';
                        this.materia = materia;
                    },
-                   listar(){
-                       this.materias = JSON.parse( localStorage.getItem('materias') || "[]" )
-                           .filter(materia=>materia.nombre.toLowerCase().indexOf(this.buscar.toLowerCase())>-1);
-                   }
+                   listar() {
+                    this.materias = JSON.parse(localStorage.getItem('materias') || "[]")
+                        .filter(materia => materia.nombre.toLowerCase().indexOf(this.buscar.toLowerCase()) > -1);
+                    if (this.materias.lenght <= 0 && this.buscar.trim().lenght <= 0) {
+                        fetch('private/modulos/materias/materias.php?accion=consultar')
+                            .then(resp => resp.json())
+                            .then(resp => {
+                                this.docentes = resp;
+                                localStorage.setItem("materias", JSON.stringify(this.materias));
+                            });
+                    }
+                }
                },
                template: `
                    <div class="row">
